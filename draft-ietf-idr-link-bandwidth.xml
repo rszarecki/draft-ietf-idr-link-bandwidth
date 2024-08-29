@@ -173,7 +173,7 @@
       not perform unequal cost load balancing based on link bandwidths.</t>
     </section>
 
-    <section anchor="Acknowledgements" title="Acknowledgements">
+    <section anchor="Acknowledgments" title="Acknowledgments">
       <t>The authors would like to thank Yakov Rekhter, Srihari Sangli and Dan
       Tappan for proposing unequal cost load balancing as one possible
       application of the extended community attribute.</t>

@@ -72,7 +72,7 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Link Bandwidth Extended Community . . . . . . . . . . . . . .   2
    3.  Deployment Considerations . . . . . . . . . . . . . . . . . .   3
-   4.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   4
+   4.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   4
    5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
    7.  Normative References  . . . . . . . . . . . . . . . . . . . .   4
@@ -170,7 +170,7 @@ Mohapatra, et al.         Expires 1 March 2025                  [Page 3]
 Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
 
 
-4.  Acknowledgements
+4.  Acknowledgments
 
    The authors would like to thank Yakov Rekhter, Srihari Sangli and Dan
    Tappan for proposing unequal cost load balancing as one possible
