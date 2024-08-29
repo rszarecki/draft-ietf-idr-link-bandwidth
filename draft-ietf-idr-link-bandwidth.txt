@@ -72,12 +72,11 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Link Bandwidth Extended Community . . . . . . . . . . . . . .   2
    3.  Deployment Considerations . . . . . . . . . . . . . . . . . .   3
-   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
-   6.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .   4
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   4
-   8.  Normative References  . . . . . . . . . . . . . . . . . . . .   4
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   5
+   4.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   4
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
+   7.  Normative References  . . . . . . . . . . . . . . . . . . . .   4
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   4
 
 1.  Introduction
 
@@ -92,7 +91,7 @@ Table of Contents
 2.  Link Bandwidth Extended Community
 
    When a BGP speaker receives a route from an external neighbor and
-   advertises this route (via IBGP) to internal neighbors,as part of
+   advertises this route (via IBGP) to internal neighbors, as part of
    this advertisement the router may carry the cost to reach the
    external neighbor.  The cost can be either configured per neighbor or
    derived from the bandwidth of the link that connects the router to a
@@ -106,6 +105,7 @@ Table of Contents
    The extended community is optional non-transitive.  The value of the
    high-order octet of the extended Type Field is 0x40.  The value of
    the low-order octet of the extended type field for this community is
+   0x04.  The value of the Global Administrator subfield in the Value
 
 
 
@@ -114,7 +114,6 @@ Mohapatra, et al.         Expires 1 March 2025                  [Page 2]
 Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
 
 
-   0x04.  The value of the Global Administrator subfield in the Value
    Field SHOULD represent the Autonomous System of the router that
    attaches the Link Bandwidth Community.  If four octet AS numbering
    scheme is used [RFC6793], AS_TRANS should be used in the Global
@@ -135,7 +134,7 @@ Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
    tunneled, then the choice to use this community is a purely local
    matter to the load sharing router.
 
-   In the context of BGP/MPLS VPNs [RFC4364] , link bandwidth community
+   In the context of BGP/MPLS VPNs [RFC4364], link bandwidth community
    could be used to support inbound load balancing for multihomed sites,
    as follows.  Consider a site that is connected to PE1 and PE2.  Both
    PE1 and PE2 would advertise VPN-IP routes associated with the
@@ -165,33 +164,13 @@ Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
 
 
 
+
 Mohapatra, et al.         Expires 1 March 2025                  [Page 3]
 
 Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
 
 
-4.  IANA Considerations
-
-   This document defines a specific application of the two-octet AS
-   specific extended community.  IANA is requested to assign a sub- type
-   value of 0x04 for the link bandwidth extended community.
-
-       Name                                           Value
-       ----                                           -----
-       non-transitive Link Bandwidth Ext. Community  0x4004
-
-5.  Security Considerations
-
-   There are no additional security risks introduced by this design.
-
-6.  Contributors
-
-     <name>
-     <company>
-     <address>
-     <email>
-
-7.  Acknowledgements
+4.  Acknowledgements
 
    The authors would like to thank Yakov Rekhter, Srihari Sangli and Dan
    Tappan for proposing unequal cost load balancing as one possible
@@ -201,7 +180,21 @@ Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
    Halpern, Aleksi Suhonen, Randy Bush, and John Scudder for their
    comments and contributions.
 
-8.  Normative References
+5.  IANA Considerations
+
+   This document defines a specific application of the two-octet AS
+   specific extended community.  IANA is requested to assign a sub- type
+   value of 0x04 for the link bandwidth extended community.
+
+       Name                                           Value
+       ----                                           -----
+       non-transitive Link Bandwidth Ext. Community  0x4004
+
+6.  Security Considerations
+
+   There are no additional security risks introduced by this design.
+
+7.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -216,16 +209,6 @@ Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
               Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
               2006, <https://www.rfc-editor.org/info/rfc4364>.
 
-
-
-
-
-
-Mohapatra, et al.         Expires 1 March 2025                  [Page 4]
-
-Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
-
-
    [RFC6793]  Vohra, Q. and E. Chen, "BGP Support for Four-Octet
               Autonomous System (AS) Number Space", RFC 6793,
               DOI 10.17487/RFC6793, December 2012,
@@ -235,6 +218,14 @@ Authors' Addresses
 
    Pradosh Mohapatra
    Sproute Networks
+
+
+
+Mohapatra, et al.         Expires 1 March 2025                  [Page 4]
+
+Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
+
+
    Email: pradosh@sproute.com
 
 
@@ -260,6 +251,15 @@ Authors' Addresses
    San Jose, CA 95134
    United States of America
    Email: smohanty@zscaler.com
+
+
+
+
+
+
+
+
+
 
 
 

@@ -113,7 +113,7 @@
 
     <section title="Link Bandwidth Extended Community">
       <t>When a BGP speaker receives a route from an external neighbor and
-      advertises this route (via IBGP) to internal neighbors,as part of this
+      advertises this route (via IBGP) to internal neighbors, as part of this
       advertisement the router may carry the cost to reach the external
       neighbor. The cost can be either configured per neighbor or derived from
       the bandwidth of the link that connects the router to a directly
@@ -146,7 +146,7 @@
       tunneled, then the choice to use this community is a purely local matter
       to the load sharing router.</t>
 
-      <t>In the context of BGP/MPLS VPNs <xref target="RFC4364"/> , link
+      <t>In the context of BGP/MPLS VPNs <xref target="RFC4364"/>, link
       bandwidth community could be used to support inbound load balancing for
       multihomed sites, as follows. Consider a site that is connected to PE1
       and PE2. Both PE1 and PE2 would advertise VPN-IP routes associated with
@@ -173,6 +173,16 @@
       not perform unequal cost load balancing based on link bandwidths.</t>
     </section>
 
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>The authors would like to thank Yakov Rekhter, Srihari Sangli and Dan
+      Tappan for proposing unequal cost load balancing as one possible
+      application of the extended community attribute.</t>
+
+      <t>The authors would like to thank Bruno Decraene, Robert Raszuk, Joel
+      Halpern, Aleksi Suhonen, Randy Bush, and John Scudder for their comments
+      and contributions.</t>
+    </section>
+
     <section anchor="IANA" title="IANA Considerations">
       <t>This document defines a specific application of the two-octet AS
       specific extended community. IANA is requested to assign a sub- type
@@ -185,25 +195,6 @@
 
     <section anchor="Security" title="Security Considerations">
       <t>There are no additional security risks introduced by this design.</t>
-    </section>
-
-    <section title="Contributors">
-      <figure>
-        <artwork align="left">  &lt;name&gt;
-  &lt;company&gt;
-  &lt;address&gt;
-  &lt;email&gt;</artwork>
-      </figure>
-    </section>
-
-    <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>The authors would like to thank Yakov Rekhter, Srihari Sangli and Dan
-      Tappan for proposing unequal cost load balancing as one possible
-      application of the extended community attribute.</t>
-
-      <t>The authors would like to thank Bruno Decraene, Robert Raszuk, Joel
-      Halpern, Aleksi Suhonen, Randy Bush, and John Scudder for their comments
-      and contributions.</t>
     </section>
   </middle>
 
