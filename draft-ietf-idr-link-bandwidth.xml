@@ -69,11 +69,23 @@
       <organization>Zscaler</organization>
 
       <address>
+        <postal>
+          <street>120 Holger Way,</street>
+
+          <city>San Jose</city>
+
+          <region>CA</region>
+
+          <code>95134</code>
+
+          <country>US</country>
+        </postal>
+
         <email>smohanty@zscaler.com</email>
       </address>
     </author>
 
-    <date day="26" month="08" year="2024"/>
+    <date day="28" month="08" year="2024"/>
 
     <abstract>
       <t>This document describes an application of BGP extended communities

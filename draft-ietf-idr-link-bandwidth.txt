@@ -5,12 +5,12 @@
 Network Working Group                                       P. Mohapatra
 Internet-Draft                                          Sproute Networks
 Intended status: Standards Track                             R. Fernando
-Expires: 27 February 2025                                  Cisco Systems
+Expires: 1 March 2025                                      Cisco Systems
                                                              R. Das, Ed.
                                                   Juniper Networks, Inc.
                                                          S. Mohanty, Ed.
                                                                  Zscaler
-                                                          26 August 2024
+                                                          28 August 2024
 
 
                  BGP Link Bandwidth Extended Community
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 February 2025.
+   This Internet-Draft will expire on 1 March 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Mohapatra, et al.       Expires 27 February 2025                [Page 1]
+Mohapatra, et al.         Expires 1 March 2025                  [Page 1]
 
 Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Mohapatra, et al.       Expires 27 February 2025                [Page 2]
+Mohapatra, et al.         Expires 1 March 2025                  [Page 2]
 
 Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
 
@@ -165,7 +165,7 @@ Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
 
 
 
-Mohapatra, et al.       Expires 27 February 2025                [Page 3]
+Mohapatra, et al.         Expires 1 March 2025                  [Page 3]
 
 Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
 
@@ -221,7 +221,7 @@ Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
 
 
 
-Mohapatra, et al.       Expires 27 February 2025                [Page 4]
+Mohapatra, et al.         Expires 1 March 2025                  [Page 4]
 
 Internet-Draft    BGP Link Bandwidth Extended Community      August 2024
 
@@ -256,6 +256,9 @@ Authors' Addresses
 
    Satya Mohanty (editor)
    Zscaler
+   120 Holger Way,
+   San Jose, CA 95134
+   United States of America
    Email: smohanty@zscaler.com
 
 
@@ -274,7 +277,4 @@ Authors' Addresses
 
 
 
-
-
-
-Mohapatra, et al.       Expires 27 February 2025                [Page 5]
+Mohapatra, et al.         Expires 1 March 2025                  [Page 5]
