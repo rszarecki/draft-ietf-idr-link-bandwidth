@@ -85,6 +85,26 @@
       </address>
     </author>
 
+    <author fullname="Mankamana Mishra" initials="M." surname="Mishra">
+      <organization>Cisco Systems</organization>
+
+      <address>
+        <postal>
+          <street>821 alder drive,</street>
+
+          <city>Milpitas</city>
+
+          <region>CA</region>
+
+          <code>95035</code>
+
+          <country>US</country>
+        </postal>
+
+        <email>mankamis@cisco.com</email>
+      </address>
+    </author>
+
     <date day="28" month="08" year="2024"/>
 
     <abstract>
@@ -102,85 +122,86 @@
 
   <middle>
     <section title="Introduction">
-      <t>When a BGP speaker receives multiple paths from its internal peers,
-      it could select more than one path to send traffic to. In doing so, it
-      might be useful to provide the speaker with information that would help
-      it distribute the traffic based on the bandwidth of the external (DMZ)
-      link. This document suggests that the external link bandwidth be carried
-      in the network using a new extended community <xref target="RFC4360"/> -
-      the link bandwidth extended community.</t>
+      <t>Load balancing is a critical aspect of network design, enabling
+      efficient utilization of available bandwidth and improving overall
+      network performance. Traditional equal-cost multi-path (ECMP) routing
+      does not account for the varying capacities of different paths. This
+      document suggests that the external link bandwidth be carried in the
+      network using a new extended community <xref target="RFC4360"/> - the
+      link bandwidth extended community. The Link Bandwidth Extended Community
+      provides a mechanism for routers to advertise the bandwidth of their
+      links, facilitating maximum utilisation of paths.</t>
     </section>
 
     <section title="Link Bandwidth Extended Community">
-      <t>When a BGP speaker receives a route from an external neighbor and
-      advertises this route (via IBGP) to internal neighbors, as part of this
-      advertisement the router may carry the cost to reach the external
-      neighbor. The cost can be either configured per neighbor or derived from
-      the bandwidth of the link that connects the router to a directly
-      connected external neighbor. This value is carried in the Link Bandwidth
-      Extended Community. No more than one link bandwidth extended community
-      SHALL be attached to a route. Additionally, if a route is received with
-      link bandwidth extended community and the BGP speaker sets itself as
-      next-hop while announcing that route to other peers, the link bandwidth
-      extended community should be removed.</t>
+      <t>The Link Bandwidth Extended Community is defined as a BGP extended
+      community that carries the bandwidth information of a link connecting to
+      a neighbor. This community can be used to inform other routers about the
+      available bandwidth on a given link.</t>
 
-      <t>The extended community is optional non-transitive. The value of the
-      high-order octet of the extended Type Field is 0x40. The value of the
-      low-order octet of the extended type field for this community is 0x04.
-      The value of the Global Administrator subfield in the Value Field SHOULD
-      represent the Autonomous System of the router that attaches the Link
-      Bandwidth Community. If four octet AS numbering scheme is used <xref
-      target="RFC6793"/>, AS_TRANS should be used in the Global Administrator
-      subfield. The bandwidth of the link is expressed as 4 octets in IEEE
-      floating point format, units being bytes (not bits!) per second. It is
-      carried in the Local Administrator subfield of the Value Field.</t>
+      <t>The extended community can be optional transitive or non-transitive.
+      The value of the high-order octet of the extended Type Field can be 0x00
+      or 0x40. The value of the low-order octet of the extended type field for
+      this community is 0x04. The value of the Global Administrator subfield
+      in the Value Field SHOULD represent the Autonomous System of the router
+      that attaches the Link Bandwidth Community. If four octet AS numbering
+      scheme is used <xref target="RFC6793"/>, AS_TRANS should be used in the
+      Global Administrator subfield. The bandwidth of the link is expressed as
+      4 octets in IEEE floating point format, units being bytes (not bits!)
+      per second. It is carried in the Local Administrator subfield of the
+      Value Field.</t>
     </section>
 
-    <section title="Deployment Considerations">
-      <t>The usage of this community is restricted to the cases where BGP
-      multipath can be safely deployed. If the path between the load sharing
-      router and the exit point is not tunneled, then the IGP distance between
-      the load balancing router and the exit points should be the same.</t>
+    <section title="Protocol Procedures">
+      <section anchor="Originator"
+               title="Sender (Originating Link Bandwidth Community)">
+        <t>An originator of the link bandwidth community SHOULD be able to
+        originate either a transitive or a non-transitive link bandwidth
+        extended community. Implementation SHOULD provide configuration to set
+        the transitivity type of the link bandwidth community.&nbsp;No more
+        than one link bandwidth extended community SHALL be attached to a
+        route.</t>
+      </section>
 
-      <t>If the path between the load sharing router and the exit point is
-      tunneled, then the choice to use this community is a purely local matter
-      to the load sharing router.</t>
+      <section anchor="Receiver"
+               title="Receiver (Receiving link bandwidth community)&nbsp;">
+        <t>A BGP receiver MUST be able to process link bandwidth community of
+        both transitive or non-transitive type. The receiver SHOULD NOT flap
+        or treat the route as malformed based on the transitivity of the link
+        bandwidth community.</t>
+      </section>
 
-      <t>In the context of BGP/MPLS VPNs <xref target="RFC4364"/>, link
-      bandwidth community could be used to support inbound load balancing for
-      multihomed sites, as follows. Consider a site that is connected to PE1
-      and PE2. Both PE1 and PE2 would advertise VPN-IP routes associated with
-      the destinations within the site. One way to enable other PEs to receive
-      all these routes is to require the RD of the routes advertised by PE1 to
-      be different from the RD of the routes advertised by PE2. The VPN-IP
-      routes advertised by PE1 should carry the link bandwidth community;
-      likewise for the VPN-IP routes advertised by PE2. The bandwidth value
-      carried in the community could be locally determined by PE1 and PE2.
-      Alternatively CEs of the site, when advertising IP routes to PE1 and
-      PE2, could add the link bandwith community to these advertisements, in
-      which case PE1 and PE2, when originating VPN-IP routes, would use the
-      bandwidth value from the IP routes they received from the CEs to
-      construct the link bandwidth community carried by these VPN-IP
-      routes.</t>
+      <section anchor="Re-advertisement" title="Re-advertisement Procedures">
+        <section anchor="NextHopSelf"
+                 title="Re-advertisement with Next hop Self">
+          <t>When a BGP speaker re-advertises a route with the Link Bandwidth
+          Extended Community and sets the next hop to itself, it SHOULD follow
+          the same procedures as outlined in <xref target="Originator"/>.</t>
+        </section>
 
-      <t>An ingress PE, when sending traffic to destinations within the site,
-      can use the bandwidth value carried in the community of the routes
-      advertised by PE1 and PE2 to perform load sharing, where some of the
-      traffic would go via PE1, while other traffic would go via PE2.</t>
-
-      <t>If there are multiple paths to reach a destination and if only some
-      of them have link bandwidth community, the load sharing router should
-      not perform unequal cost load balancing based on link bandwidths.</t>
+        <section anchor="NextHopUnchanged"
+                 title=" Re-advertisement with Next Hop Unchanged">
+          <t>A BGP speaker that receives a route with link bandwidth
+          community, re-advertises or reflects the same without changing its
+          next hop SHOULD NOT change the link bandwidth extended community in
+          any way.</t>
+        </section>
+      </section>
     </section>
 
-    <section anchor="Acknowledgments" title="Acknowledgments">
-      <t>The authors would like to thank Yakov Rekhter, Srihari Sangli and Dan
-      Tappan for proposing unequal cost load balancing as one possible
-      application of the extended community attribute.</t>
+    <section anchor="Error" title="Error Handling">
+      <t>If a receiver receives a route with more than one Link Bandwidth
+      Extended Community, it SHOULD:<list>
+          <t>Prefer the lowest value of the attached link bandwidth community
+          (Irrespective of the transitivity)</t>
 
-      <t>The authors would like to thank Bruno Decraene, Robert Raszuk, Joel
-      Halpern, Aleksi Suhonen, Randy Bush, and John Scudder for their comments
-      and contributions.</t>
+          <t>Prefer the transitive Link Bandwidth Extended Community when
+          choosing between transitive and non-transitive types that have the
+          same value</t>
+        </list></t>
+
+      <t>Implementations MAY provide configuration options (knobs) to change
+      the above preference.</t>
     </section>
 
     <section anchor="IANA" title="IANA Considerations">
@@ -189,12 +210,70 @@
       value of 0x04 for the link bandwidth extended community.<figure>
           <artwork>    Name                                           Value
     ----                                           -----
-    non-transitive Link Bandwidth Ext. Community  0x4004</artwork>
+    non-transitive Link Bandwidth Ext. Community   0x4004</artwork>
+        </figure><figure>
+          <artwork>    Name                                           Value
+    ----                                           -----
+    transitive Link Bandwidth Ext. Community       0x0004</artwork>
         </figure></t>
     </section>
 
     <section anchor="Security" title="Security Considerations">
       <t>There are no additional security risks introduced by this design.</t>
+    </section>
+
+    <section anchor="Contributors" title="Contributors">
+      <author fullname="Kaliraj Vairavakkalai" initials="K."
+              surname="Vairavakkalai">
+        <organization>Juniper Networks, Inc.</organization>
+
+        <address>
+          <postal>
+            <street>1133 Innovation Way,</street>
+
+            <city>Sunnyvale</city>
+
+            <region>CA</region>
+
+            <code>94089</code>
+
+            <country>US</country>
+          </postal>
+
+          <email>kaliraj@juniper.net</email>
+        </address>
+      </author>
+
+      <author fullname="Natrajan Venkataraman" initials="N."
+              surname="Venkataraman">
+        <organization>Juniper Networks, Inc.</organization>
+
+        <address>
+          <postal>
+            <street>1133 Innovation Way,</street>
+
+            <city>Sunnyvale</city>
+
+            <region>CA</region>
+
+            <code>94089</code>
+
+            <country>US</country>
+          </postal>
+
+          <email>natv@juniper.net</email>
+        </address>
+      </author>
+    </section>
+
+    <section anchor="Acknowledgments" title="Acknowledgments">
+      <t>The authors would like to thank Yakov Rekhter, Srihari Sangli and Dan
+      Tappan for proposing unequal cost load balancing as one possible
+      application of the extended community attribute.</t>
+
+      <t>The authors would like to thank Bruno Decraene, Robert Raszuk, Joel
+      Halpern, Aleksi Suhonen, Randy Bush, Jeff Haas and John Scudder for
+      their comments and contributions.</t>
     </section>
   </middle>
 
